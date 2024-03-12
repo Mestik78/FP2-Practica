@@ -92,7 +92,7 @@ void Juego::posibles_movimientos(Movimiento& mov) const {
 			col = col + DIRS[i][1];
 			if (tablero.leer(fil, col) == VACIA && tablero.correcta(fil, col))
 			{
-				mov.insertar_dir(Direccion(i));
+				cout << "mipollamorena";
 			}
 		}
 	} 
@@ -169,13 +169,13 @@ void Juego::mostrar() const {
 	pinta_linea(char(218), char(194), char(191));
 	// para cada fila
 	for (int fil = 0; fil < tablero.num_filas(); fil++) {
-		// primera línea
+		// primera lï¿½nea
 		pinta_borde_celda(fil);
-		// segunda línea, con la meta posiblemente
+		// segunda lï¿½nea, con la meta posiblemente
 		pinta_centro_celda(fil);
-		// tercera línea
+		// tercera lï¿½nea
 		pinta_borde_celda(fil);
-		// separación entre filas
+		// separaciï¿½n entre filas
 		if (fil < tablero.num_filas() - 1) {
 			pinta_linea(char(195), char(197), char(180));
 		}
