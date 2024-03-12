@@ -92,7 +92,7 @@ void Juego::posibles_movimientos(Movimiento& mov) const {
 			col = col + DIRS[i][1];
 			if (tablero.leer(fil, col) == VACIA && tablero.correcta(fil, col))
 			{
-				cout << "mipollamorena";
+				mov.insertar_dir(Direccion(i));
 			}
 		}
 	} 
