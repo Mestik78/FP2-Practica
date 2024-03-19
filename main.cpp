@@ -1,117 +1,64 @@
-
-#include "colores.h"
-#include <iomanip>
 #include <iostream>
-
+#include <string>
+#include "modules/juego.h"
+#include "modules/movimiento.h"
 using namespace std;
 
-/*
-* Esto es un ejemplo de cómo pintar un tablero constante
-* con el mismo formato que aparece en el enunciado de la
-* práctica.
-* Las funciones que aparecen a continuación hacen uso de
-* varias constantes, para el tablero y sus dimensiones,
-* o la posición de la meta.
-* En la práctica, esas funciones seguramente sean métodos
-* de una clase con acceso a esos datos del juego.
-*/
+Juego solitario;
 
-const int FILS = 4;
-const int COLS = 5;
-const  int tablero[FILS][COLS] = {
-{0, 0, 1, 2, 2},
-{2, 1, 2, 2, 0},
-{0, 1, 1, 2, 0},
-{0, 0, 0, 0, 0}
-};
 
-const int f_meta = 2, c_meta = 1;
-
-enum Celda { NULA, VACIA, FICHA };
-
-const int DEFAULT_COLOR = -1;
-void color_fondo(int color) {
-    if (color == DEFAULT_COLOR)
-        cout << RESET;
-    else if (color == NULA)
-        cout << BG_BLACK;
-    else if (color == FICHA)
-        cout << BG_LBLUE;
-    else // color == VACIA
-        cout << BG_ORANGE;
+bool cumple_formato_de_entrada(int fila, int columna,  int spacePos){
+    return !(fila == 0 || columna == 0 || spacePos == string::npos);
 }
 
-void pinta_cabecera() {
-    cout << setw(2) << "    "; // margen inicial
-    cout << setw(5) << 1;
-    for (int i = 2; i <= COLS; i++) {
-        cout << setw(7) << i;
-    }
-    cout << endl;
-}
+Movimiento pedir_movimiento(Juego juego) {
+    string respuesta;
+    int fila = 0;
+    int columna = 0;
+    int spacePos;
 
-void pinta_linea(char esquinaIzda, char cruce, char esquinaDer) {
-    cout << "    "; // margen inicial
-    cout << esquinaIzda;
-    for (int i = 0; i < COLS - 1; i++) {
-        cout << string(6, char(196)) << cruce;
-    }
-    cout << string(6, char(196)) << esquinaDer << endl;
-}
-
-
-void pinta_borde_celda(int fila) {
-    cout << "    "; // margen inicial
-    for (int k = 0; k < COLS; k++) { // cada columna
-        cout << char(179);
-        color_fondo(tablero[fila][k]);
-        cout << "      ";
-        color_fondo(DEFAULT_COLOR);
-    }
-    cout << char(179) << endl; // lateral derecho
-}
-
-void pinta_centro_celda(int fila) {
-    cout << "  " << setw(2) << fila + 1; // margen inicial
-    for (int k = 0; k < COLS; k++) { // cada columna
-        cout << char(179);
-        // el color de fondo depende del contenido
-        color_fondo(tablero[fila][k]);
-
-        if (fila == f_meta && k == c_meta) { // meta
-            cout << YELLOW;
-            cout << "  " << char(219) << char(219) << "  ";
+    do {
+        cout << "Selecciona una FICHA (fila y columna): ";
+        getline(cin, respuesta);
+        spacePos = respuesta.find(" ");
+        if (spacePos != string::npos)
+        {
+            fila = stoi(respuesta.substr(0,spacePos));
+            columna = stoi(respuesta.substr(spacePos+1));
         }
-        else {
-            cout << "      ";
+
+        if (!cumple_formato_de_entrada(fila, columna, spacePos)) {
+            cout << "No se cumple el formato de entrada." << endl;
+        } else if (!juego.es_posicion_valida(fila-1, columna-1)) {
+            cout << "La posiciÃ³n no es vÃ¡lida, selecciona una ficha." << endl;
         }
-        color_fondo(DEFAULT_COLOR);
-    }
-    cout << char(179) << endl; // lateral derecho
+    } while (
+        !cumple_formato_de_entrada(fila, columna, spacePos) || !juego.es_posicion_valida(fila-1, columna-1)
+    ); 
+
+    fila--;
+    columna--;
+    Movimiento movimiento(fila, columna);
+    return movimiento;
+}
+
+Movimiento leer_movimiento(Juego juego) {
+    Movimiento movimiento(0, 0);
+    do
+    {
+        movimiento = pedir_movimiento(juego);
+        juego.cargar_posibles_movimientos(movimiento);
+        cout << movimiento.valor_num_dirs();
+    } while (movimiento.valor_num_dirs() == 0);
+    
+    return movimiento;
 }
 
 int main() {
-    system("cls"); // borrar consola
-    cout << RESET;
-
-    // borde superior
-    pinta_cabecera();
-    pinta_linea(char(218), char(194), char(191));
-    // para cada fila
-    for (int fil = 0; fil < FILS; fil++) {
-        // primera línea
-        pinta_borde_celda(fil);
-        // segunda línea, con la meta posiblemente
-        pinta_centro_celda(fil);
-        // tercera línea
-        pinta_borde_celda(fil);
-        // separación entre filas
-        if (fil < FILS - 1) {
-            pinta_linea(char(195), char(197), char(180));
-        }
-        else {
-            pinta_linea(char(192), char(193), char(217));
-        }
-    }
-
+    solitario.mostrar();
+    do {
+        Movimiento movimiento = leer_movimiento(solitario);
+        solitario.jugar(movimiento);
+        solitario.mostrar();
+    } while (solitario.valor_estado() == JUGANDO);
 }
