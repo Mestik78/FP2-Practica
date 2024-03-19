@@ -10,8 +10,7 @@ typedef enum { ARRIBA, ABAJO, IZQUIERDA, DERECHA, INDETERMINADA } Direccion;
 typedef enum { JUGANDO, GANADOR, BLOQUEO } Estado;
 typedef enum { NULA, VACIA, FICHA } Celda;
 
-string dirToString(Direccion
-d) {
+/*string dirToString(Direccion d) {
     string dir;
 
     if (d = ARRIBA)
@@ -29,4 +28,10 @@ d) {
     }
     
     return dir;
+}*/
+
+Direccion arrToDir(int arr[DIM]) {
+    if (arr == DIRS[0]) {
+        
+    }
 }

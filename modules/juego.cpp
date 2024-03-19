@@ -27,8 +27,9 @@ void Juego::cargar_posibles_movimientos(Movimiento& mov) const {
     for (int dir = 0; dir < NUMDIR; dir++)
     {
         if (tablero.valor_celda(DIRS[dir][0], DIRS[dir][1])) {
-            Direccion direccion = 
-            mov.insertar_dir(ARRIBA);
+            
+            Direccion direccion = ARRIBA;
+            mov.insertar_dir(direccion);
         }
     }
     
