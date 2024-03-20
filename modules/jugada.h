@@ -1,7 +1,7 @@
 #pragma once
 #include "constantes.h"
 
-class Jugada {  //Movimiento
+class Jugada {  //jugada
     private:
         int fila;
         int columna;

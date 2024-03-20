@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "modules/juego.h"
-#include "modules/movimiento.h"
+#include "modules/jugada.h"
 using namespace std;
 
 Juego solitario;
@@ -11,7 +11,7 @@ bool cumple_formato_de_entrada(int fila, int columna,  int spacePos){
     return !(fila == 0 || columna == 0 || spacePos == string::npos);
 }
 
-Jugada pedir_movimiento(Juego juego) {
+Jugada pedir_jugada(Juego juego) {
     string respuesta;
     int fila = 0;
     int columna = 0;
@@ -38,39 +38,39 @@ Jugada pedir_movimiento(Juego juego) {
 
     fila--;
     columna--;
-    Jugada movimiento(fila, columna);
-    return movimiento;
+    Jugada jugada(fila, columna);
+    return jugada;
 }
 
-Jugada leer_movimiento(Juego juego) {
-    Jugada movimiento(0, 0);
+Jugada leer_jugada(Juego juego) {
+    Jugada jugada(0, 0);
     do
     {
-        movimiento = pedir_movimiento(juego);
-        juego.cargar_posibles_direcciones(movimiento);
-        cout << movimiento.valor_num_dirs();
-    } while (movimiento.valor_num_dirs() == 0);
+        jugada = pedir_jugada(juego);
+        juego.cargar_posibles_direcciones(jugada);
+        cout << jugada.valor_num_dirs();
+    } while (jugada.valor_num_dirs() == 0);
     
-    return movimiento;
+    return jugada;
 }
 
 
-Jugada pedir_movimiento(Juego juego) {
+/*Jugada pedir_jugada(Juego juego) {
     
 }
 
-Jugada get_movimiento(Juego juego) {
+Jugada get_jugada(Juego juego) {
     do
     {
         
     } while ();
-}
+}*/
 
 int main() {
     solitario.mostrar();
     do {
-        Jugada movimiento = get_movimiento(solitario);
-        solitario.jugar(movimiento);
+        Jugada jugada = leer_jugada(solitario);
+        solitario.jugar(jugada);
         solitario.mostrar();
     } while (solitario.valor_estado() == JUGANDO);
 }

@@ -1,4 +1,4 @@
-#include "movimiento.h"
+#include "jugada.h"
 
 Jugada::Jugada(int f, int c) {
     fila = f;

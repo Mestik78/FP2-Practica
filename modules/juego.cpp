@@ -7,7 +7,7 @@ Juego::Juego() {
     
 }
 
-Juego::Juego(int movimientos) {
+Juego::Juego(int jugadas) {
 
 }
 
