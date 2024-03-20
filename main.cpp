@@ -88,5 +88,11 @@ int main() {
 		Jugada jugada = leer_jugada(solitario);
 		solitario.jugar(jugada);
 		solitario.mostrar();
+		solitario.check_estado();
+		cout << "etado:" << solitario.valor_estado();
 	} while (solitario.valor_estado() == JUGANDO);
+
+	if (solitario.valor_estado() == BLOQUEO) {
+		cout << "BLOQUEADO" << endl;
+	}
 }

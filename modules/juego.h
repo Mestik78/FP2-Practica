@@ -24,4 +24,5 @@ class Juego {
         Estado valor_estado() const;
         void jugar(const Jugada& mov);
         void mostrar() const;
+        void check_estado();
 };
