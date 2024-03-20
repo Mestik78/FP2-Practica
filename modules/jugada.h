@@ -17,6 +17,6 @@ class Jugada {  //jugada
         Direccion valor_dir_activa() const;
         void fijar_dir_activa(Direccion d);
         void insertar_dir(Direccion d);
-        int valor_num_dirs() const;
+        int get_num_dirs() const;
         Direccion valor_direccion(int i) const;
 };
