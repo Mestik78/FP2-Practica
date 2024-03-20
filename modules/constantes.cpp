@@ -1,19 +1,20 @@
 #include "constantes.h"
 #include <string>
+using namespace std;
 
 string dirToString(Direccion d) {
     string dir;
 
-    if (d = ARRIBA)
+    if (d == ARRIBA)
     {
         dir = "Arriba";
-    } else if (d = ABAJO)
+    } else if (d == ABAJO)
     {
         dir = "Abajo";
-    } else if (d = IZQUIERDA)
+    } else if (d == IZQUIERDA)
     {
         dir = "Izquierda";
-    } else if (d = DERECHA)
+    } else if (d == DERECHA)
     {
         dir = "Derecha";
     }

@@ -44,14 +44,28 @@ Jugada pedir_jugada(Juego juego) {
 }
 
 void mostrar_posibles_direcciones(Jugada jugada) {
+	cout << "Posibles direcciones:" << endl;
 	for (int dir = 0; dir < jugada.get_num_dirs(); dir++)
 	{
-		cout << "\t" + dir + dirToString(jugada.valor_direccion(dir)) << endl;
+		cout << "\t" << dir+1 << ". " << dirToString(jugada.valor_direccion(dir)) << endl;
 	}
 }
 
-void pedir_direccion() {
+void pedir_direccion(Jugada& jugada) {
+	string respuesta;
+	int dir = 0;
 
+	do {
+		cout << "Selecciona una dirección para mover la ficha (1-" << jugada.get_num_dirs() << "): ";
+		getline(cin, respuesta);
+		dir = stoi(respuesta);
+
+		if (!(dir > 0 && dir <= jugada.get_num_dirs())) {
+			cout << "La dirección no es válida." << endl;
+		}
+	} while (!(dir > 0 && dir <= jugada.get_num_dirs())); 
+
+	jugada.fijar_dir_activa(static_cast<Direccion>(dir-1));
 }
 
 Jugada leer_jugada(Juego juego) {
@@ -60,14 +74,10 @@ Jugada leer_jugada(Juego juego) {
 	{
 		jugada = pedir_jugada(juego);
 		juego.cargar_posibles_direcciones(jugada);
-		cout << jugada.get_num_dirs();
 	} while (jugada.get_num_dirs() == 0);
 
-	do
-	{
-		mostrar_posibles_direcciones(jugada);
-		pedir_direccion();
-	} while (false);
+	mostrar_posibles_direcciones(jugada);
+	pedir_direccion(jugada);
 	
 	return jugada;
 }

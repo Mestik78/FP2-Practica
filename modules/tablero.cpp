@@ -8,9 +8,11 @@ Tablero::Tablero() {
     {
         for (int j = 0; j < columnas; j++)
         {
-            celdas[i][j] = FICHA;
+            celdas[i][j] = VACIA;
             if (j%2 == 0) {
                 celdas[i][j] = NULA;
+            } else if (i == 2 or i == 1) {
+                celdas[i][j] = FICHA;
             }
         }
         
