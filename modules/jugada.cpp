@@ -1,8 +1,10 @@
 #include "jugada.h"
+#include <iostream>
 
 Jugada::Jugada(int f, int c) {
     fila = f;
     columna = c;
+    cont = 0;
 }
 
 int Jugada::get_num_dirs() const {

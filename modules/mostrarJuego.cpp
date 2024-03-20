@@ -17,8 +17,6 @@ using namespace std;
 * de una clase con acceso a esos datos del juego.
 */
 
-const int f_meta = 2, c_meta = 1;
-
 const int DEFAULT_COLOR = -1;
 void color_fondo(int color) {
     if (color == DEFAULT_COLOR)
@@ -61,7 +59,7 @@ void pinta_borde_celda(int fila, int COLS, Tablero tablero) {
     cout << char(179) << endl; // lateral derecho
 }
 
-void pinta_centro_celda(int fila, int COLS, Tablero tablero) {
+void pinta_centro_celda(int fila, int COLS, Tablero tablero, int f_meta, int c_meta) {
     cout << "  " << setw(2) << fila + 1; // margen inicial
     for (int k = 0; k < COLS; k++) { // cada columna
         cout << char(179);
@@ -81,7 +79,7 @@ void pinta_centro_celda(int fila, int COLS, Tablero tablero) {
 }
 
 void Juego::mostrar() const {
-    //system("clear"); // borrar consola
+    system("clear"); // borrar consola
     cout << RESET;
 
     Tablero tablero = this->tablero;
@@ -96,7 +94,7 @@ void Juego::mostrar() const {
         // primera línea
         pinta_borde_celda(fil, columnas, tablero);
         // segunda línea, con la meta posiblemente
-        pinta_centro_celda(fil, columnas, tablero);
+        pinta_centro_celda(fil, columnas, tablero, f_meta, c_meta);
         // tercera línea
         pinta_borde_celda(fil, columnas, tablero);
         // separación entre filas

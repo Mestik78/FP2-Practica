@@ -5,23 +5,30 @@ using namespace std;
 
 Juego::Juego() {
     n_fichas = 1;
+
+    f_meta = tablero.valor_num_filas()/2;
+    c_meta = tablero.valor_num_columnas()/2;
 }
 
 Juego::Juego(int jugadas) {
     n_fichas = 1;
-    Tablero t(jugadas);
+
+    Tablero t(jugadas, n_fichas, f_meta, c_meta);
     tablero = t;
+
+    f_meta = tablero.valor_num_filas()/2;
+    c_meta = tablero.valor_num_columnas()/2;
 }
 
 Estado Juego::valor_estado() const {
     return estado;
 }
 
-void Juego::jugar(const Jugada& mov) {
-    int f = mov.valor_fila();
-    int c = mov.valor_columna();
+void Juego::jugar(const Jugada& jug) {
+    int f = jug.valor_fila();
+    int c = jug.valor_columna();
 
-    Direccion dir = mov.valor_direccion(mov.valor_dir_activa());
+    Direccion dir = jug.valor_direccion(jug.valor_dir_activa());
     int df = DIRS[dir][0];
     int dc = DIRS[dir][1];
 
@@ -37,11 +44,11 @@ bool Juego::es_posicion_valida(int fila, int columna) const{
     return tablero.valor_celda(fila, columna) == FICHA;
 }
 
-void Juego::cargar_posibles_direcciones(Jugada& mov) const {
+void Juego::cargar_posibles_direcciones(Jugada& jug) const {
     for (int dir = 0; dir < NUMDIR; dir++)
     {
-        int nf = mov.valor_fila() ;
-        int nc = mov.valor_columna();
+        int nf = jug.valor_fila() ;
+        int nc = jug.valor_columna();
 
         nf += DIRS[dir][0];
         nc += DIRS[dir][1];
@@ -52,7 +59,7 @@ void Juego::cargar_posibles_direcciones(Jugada& mov) const {
 
             if (tablero.valor_celda(nf, nc) == VACIA) {
                 Direccion direccion = static_cast<Direccion>(dir);
-                mov.insertar_dir(direccion);
+                jug.insertar_dir(direccion);
             }
         }
     }
@@ -77,6 +84,10 @@ void Juego::check_estado() {
         
         if (jug.get_num_dirs() == 0) {
             estado = BLOQUEO;
+        }
+
+        if (f == f_meta && c == c_meta) {
+            estado = GANADOR;
         }
     }
 }

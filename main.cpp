@@ -5,7 +5,7 @@
 #include "modules/jugada.h"
 using namespace std;
 
-Juego solitario(7);
+Juego solitario(1);
 
 
 bool cumple_formato_de_entrada(int fila, int columna,  int spacePos){
@@ -57,7 +57,7 @@ void pedir_direccion(Jugada& jugada) {
 
 	do {
 		cout << "Selecciona una dirección para mover la ficha (1-" << jugada.get_num_dirs() << "): ";
-		getline(cin, respuesta);
+		cin >> respuesta;
 		dir = stoi(respuesta);
 
 		if (!(dir > 0 && dir <= jugada.get_num_dirs())) {
@@ -83,16 +83,30 @@ Jugada leer_jugada(Juego juego) {
 }
 
 int main() {
-	solitario.mostrar();
-	do {
-		Jugada jugada = leer_jugada(solitario);
-		solitario.jugar(jugada);
+/*
+	bool seguirJugando = false;
+	string respuesta;
+	do
+	{*/
 		solitario.mostrar();
-		solitario.check_estado();
-		cout << "etado:" << solitario.valor_estado();
-	} while (solitario.valor_estado() == JUGANDO);
+		do {
+			Jugada jugada = leer_jugada(solitario);
+			solitario.jugar(jugada);
+			solitario.mostrar();
+			solitario.check_estado();
+		} while (solitario.valor_estado() == JUGANDO);
 
-	if (solitario.valor_estado() == BLOQUEO) {
-		cout << "BLOQUEADO" << endl;
-	}
+		if (solitario.valor_estado() == BLOQUEO) {
+			cout << "BLOQUEADO" << endl;
+		}
+		if (solitario.valor_estado() == GANADOR) {
+			cout << "GANADOR" << endl;
+		}
+
+	/*	cout << "¿Quieres volver a jugar? (s/n): ";
+		cin >> respuesta;
+		if (respuesta == "s") seguirJugando = true;
+	} while (seguirJugando);*/
+	
+
 }
