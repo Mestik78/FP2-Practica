@@ -30,5 +30,4 @@ string dirToString(Direccion d) {
     }
     
     return dir;
-}
-*/
+}*/
