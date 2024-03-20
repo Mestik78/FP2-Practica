@@ -5,7 +5,7 @@
 #include "modules/jugada.h"
 using namespace std;
 
-Juego solitario(1);
+Juego solitario(30);
 
 
 bool cumple_formato_de_entrada(int fila, int columna,  int spacePos){
