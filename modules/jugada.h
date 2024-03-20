@@ -1,7 +1,7 @@
 #pragma once
 #include "constantes.h"
 
-class Movimiento {
+class Jugada {  //Movimiento
     private:
         int fila;
         int columna;
@@ -11,7 +11,7 @@ class Movimiento {
         int cont;
         Direccion direcciones[NUMDIR];
     public:
-        Movimiento(int f, int c);
+        Jugada(int f, int c);
         int valor_fila() const;
         int valor_columna() const;
         Direccion valor_dir_activa() const;

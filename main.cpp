@@ -11,7 +11,7 @@ bool cumple_formato_de_entrada(int fila, int columna,  int spacePos){
     return !(fila == 0 || columna == 0 || spacePos == string::npos);
 }
 
-Movimiento pedir_movimiento(Juego juego) {
+Jugada pedir_movimiento(Juego juego) {
     string respuesta;
     int fila = 0;
     int columna = 0;
@@ -38,26 +38,38 @@ Movimiento pedir_movimiento(Juego juego) {
 
     fila--;
     columna--;
-    Movimiento movimiento(fila, columna);
+    Jugada movimiento(fila, columna);
     return movimiento;
 }
 
-Movimiento leer_movimiento(Juego juego) {
-    Movimiento movimiento(0, 0);
+Jugada leer_movimiento(Juego juego) {
+    Jugada movimiento(0, 0);
     do
     {
         movimiento = pedir_movimiento(juego);
-        juego.cargar_posibles_movimientos(movimiento);
+        juego.cargar_posibles_direcciones(movimiento);
         cout << movimiento.valor_num_dirs();
     } while (movimiento.valor_num_dirs() == 0);
     
     return movimiento;
 }
 
+
+Jugada pedir_movimiento(Juego juego) {
+    
+}
+
+Jugada get_movimiento(Juego juego) {
+    do
+    {
+        
+    } while ();
+}
+
 int main() {
     solitario.mostrar();
     do {
-        Movimiento movimiento = leer_movimiento(solitario);
+        Jugada movimiento = get_movimiento(solitario);
         solitario.jugar(movimiento);
         solitario.mostrar();
     } while (solitario.valor_estado() == JUGANDO);

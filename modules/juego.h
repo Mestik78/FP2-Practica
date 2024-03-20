@@ -11,7 +11,7 @@ class Juego {
         int f_meta, c_meta;
         Estado estado;
         int n_fichas;
-        void ejecuta_movimiento(const Movimiento& mov);
+        void ejecuta_movimiento(const Jugada& mov);
         void nuevo_estado();
         bool hay_ganador() const;
         bool hay_movimientos() const;
@@ -20,8 +20,8 @@ class Juego {
         Juego(int movimientos);
         void cargar(ifstream& entrada);
         bool es_posicion_valida(int f, int c) const;
-        void cargar_posibles_movimientos(Movimiento& mov) const;
+        void cargar_posibles_direcciones(Jugada& mov) const;    //posibles_movimientos
         Estado valor_estado() const;
-        void jugar(const Movimiento& mov);
+        void jugar(const Jugada& mov);
         void mostrar() const;
 };
