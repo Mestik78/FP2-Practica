@@ -8,7 +8,9 @@ Juego::Juego() {
 }
 
 Juego::Juego(int jugadas) {
-
+    n_fichas = 1;
+    Tablero t(jugadas);
+    tablero = t;
 }
 
 Estado Juego::valor_estado() const {
@@ -58,7 +60,6 @@ void Juego::cargar_posibles_direcciones(Jugada& mov) const {
 }
 
 void Juego::check_estado() {
-    cout << n_fichas;
     if (n_fichas <= 1) {
         int f,c;
         for (int i = 0; i < tablero.valor_num_filas(); i++)
