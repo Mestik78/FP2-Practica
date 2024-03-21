@@ -4,10 +4,7 @@
 using namespace std;
 
 Juego::Juego() {
-    n_fichas = 1;
-
-    f_meta = tablero.valor_num_filas()/2;
-    c_meta = tablero.valor_num_columnas()/2;
+    new (this) Juego(DEFMOVS);
 }
 
 Juego::Juego(int jugadas) {
