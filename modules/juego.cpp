@@ -4,17 +4,26 @@
 using namespace std;
 
 Juego::Juego() {
-    new (this) Juego(DEFMOVS);
+    new (this) Juego(DEFMOVS, MAXDIM, MAXDIM);
 }
 
 Juego::Juego(int jugadas) {
-    n_fichas = 1;
+    new (this) Juego(jugadas, MAXDIM, MAXDIM);
+}
 
-    Tablero t(jugadas, n_fichas, f_meta, c_meta);
+Juego::Juego(int filas, int columnas) {
+    new (this) Juego(DEFMOVS, filas, columnas);
+}
+
+Juego::Juego(int jugadas, int filas, int columnas) {
+    filas = filas % (MAXDIM+1);
+    columnas = columnas % (MAXDIM+1);
+
+    f_meta = filas/2;
+    c_meta = columnas/2;
+
+    Tablero t(jugadas, filas, columnas , n_fichas, f_meta, c_meta);
     tablero = t;
-
-    f_meta = tablero.valor_num_filas()/2;
-    c_meta = tablero.valor_num_columnas()/2;
 }
 
 Estado Juego::valor_estado() const {

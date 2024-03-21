@@ -91,12 +91,7 @@ void Tablero::generar_paso(int fichas[MAXDIM*MAXDIM][DIM], int& num_fichas) {
     }
 }
 
-void Tablero::generar_tablero(int filas, int columnas, int f_meta, int c_meta, int pasos, int& num_fichas) {
-    srand(time(nullptr));
-
-    int f = f_meta;
-    int c = c_meta;
-
+void Tablero::vaciar_tablero() {
     for (int i = 0; i < filas; i++)
     {
         for (int j = 0; j < columnas; j++)
@@ -104,10 +99,14 @@ void Tablero::generar_tablero(int filas, int columnas, int f_meta, int c_meta, i
             fijar_valor_celda(i, j, NULA);
         }
     }
+}
 
-    
+void Tablero::generar_tablero(int pasos, int filas, int columnas , int& num_fichas, int f_meta, int c_meta) {
+    srand(time(nullptr));
+    vaciar_tablero();
+
     int fichas[filas*columnas][DIM];
-    num_fichas = 1;
+    num_fichas = 1; //colocamos una en la meta
 
     for (int i = 0; i < pasos; i++)
     {
@@ -141,8 +140,8 @@ Tablero::Tablero() {
     }
 }
 
-Tablero::Tablero(int pasos, int& fichas, int f_meta, int c_meta) {
-    filas = 6;
-    columnas = 6;
-    generar_tablero(filas, columnas, f_meta, c_meta, pasos, fichas);
+Tablero::Tablero(int pasos, int f, int c , int& fichas, int f_meta, int c_meta) {
+    filas = f;
+    columnas = c;
+    generar_tablero(pasos, filas, columnas, fichas, f_meta, c_meta);
 }

@@ -18,6 +18,9 @@ class Juego {
     public:
         Juego();
         Juego(int jugadas);
+        Juego(int filas, int columnas);
+        Juego(int jugadas, int filas, int columnas);
+        
         void cargar(ifstream& entrada);
         bool es_posicion_valida(int f, int c) const;
         void cargar_posibles_direcciones(Jugada& mov) const;    //posibles_jugadas
