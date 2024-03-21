@@ -3,9 +3,9 @@
 #include "modules/constantes.h"
 #include "modules/juego.h"
 #include "modules/jugada.h"
+#include "modules/colores.h"
 using namespace std;
 
-Juego solitario(30);
 
 
 bool cumple_formato_de_entrada(int fila, int columna,  int spacePos){
@@ -26,12 +26,6 @@ Jugada pedir_jugada(Juego juego) {
 		{
 			fila = stoi(respuesta.substr(0,spacePos));
 			columna = stoi(respuesta.substr(spacePos+1));
-		}
-
-		if (!cumple_formato_de_entrada(fila, columna, spacePos)) {
-			cout << "No se cumple el formato de entrada." << endl;
-		} else if (!juego.es_posicion_valida(fila-1, columna-1)) {
-			cout << "La posición no es válida, selecciona una ficha." << endl;
 		}
 	} while (
 		!cumple_formato_de_entrada(fila, columna, spacePos) || !juego.es_posicion_valida(fila-1, columna-1)
@@ -83,11 +77,14 @@ Jugada leer_jugada(Juego juego) {
 }
 
 int main() {
-/*
+
 	bool seguirJugando = false;
 	string respuesta;
 	do
-	{*/
+	{
+
+		Juego solitario(50, 7, 6);
+
 		solitario.mostrar();
 		do {
 			Jugada jugada = leer_jugada(solitario);
@@ -97,16 +94,16 @@ int main() {
 		} while (solitario.valor_estado() == JUGANDO);
 
 		if (solitario.valor_estado() == BLOQUEO) {
-			cout << "BLOQUEADO" << endl;
+			cout << "\t" << RED << "BLOQUEADO" << RESET << endl;
 		}
 		if (solitario.valor_estado() == GANADOR) {
-			cout << "GANADOR" << endl;
+			cout << "\t" << GREEN << "GANADOR" << RESET << endl;
 		}
 
-	/*	cout << "¿Quieres volver a jugar? (s/n): ";
+		cout << "¿Quieres volver a jugar? (s/n): ";
 		cin >> respuesta;
 		if (respuesta == "s") seguirJugando = true;
-	} while (seguirJugando);*/
+	} while (seguirJugando);
 	
 
 }

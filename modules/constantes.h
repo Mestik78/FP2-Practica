@@ -12,3 +12,5 @@ typedef enum { JUGANDO, GANADOR, BLOQUEO } Estado;
 typedef enum { NULA, VACIA, FICHA } Celda;
 
 string dirToString(Direccion d);
+
+const int DEFMOVS = 5;

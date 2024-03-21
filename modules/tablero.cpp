@@ -85,18 +85,10 @@ void Tablero::generar_paso(int fichas[MAXDIM*MAXDIM][DIM], int& num_fichas) {
         f+=nf;
         c+=nc;
         fijar_valor_celda(f,c, FICHA);
-        fichas[num_fichas][0] = f;
-        fichas[num_fichas][1] = c;
-        num_fichas++;
     }
 }
 
-void Tablero::generar_tablero(int filas, int columnas, int f_meta, int c_meta, int pasos, int& num_fichas) {
-    srand(time(nullptr));
-
-    int f = f_meta;
-    int c = c_meta;
-
+void Tablero::vaciar_tablero() {
     for (int i = 0; i < filas; i++)
     {
         for (int j = 0; j < columnas; j++)
@@ -104,10 +96,14 @@ void Tablero::generar_tablero(int filas, int columnas, int f_meta, int c_meta, i
             fijar_valor_celda(i, j, NULA);
         }
     }
+}
 
-    
+void Tablero::generar_tablero(int pasos, int filas, int columnas , int& num_fichas, int f_meta, int c_meta) {
+    srand(time(nullptr));
+    vaciar_tablero();
+
     int fichas[filas*columnas][DIM];
-    num_fichas = 1;
+    num_fichas = 1; //colocamos una en la meta
 
     for (int i = 0; i < pasos; i++)
     {
@@ -116,33 +112,10 @@ void Tablero::generar_tablero(int filas, int columnas, int f_meta, int c_meta, i
     
 }
 
-Tablero::Tablero() {
-    filas = 5;
-    columnas = 5;
-    
-    for (int i = 0; i < filas; i++)
-    {
-        for (int j = 0; j < columnas; j++)
-        {
-            celdas[i][j] = VACIA;/*
-            if (j%2 == 0) {
-                celdas[i][j] = NULA;
-            } else if (i == 2 or i == 1) {
-                celdas[i][j] = FICHA;
-            }*/
-            if (i==1 && j == 1) {
-                celdas[i][j] = FICHA;
-            }
-            if (i==2 && j == 1) {
-                celdas[i][j] = FICHA;
-            }
-        }
-        
-    }
-}
+Tablero::Tablero() {}
 
-Tablero::Tablero(int pasos, int& fichas, int f_meta, int c_meta) {
-    filas = 6;
-    columnas = 6;
-    generar_tablero(filas, columnas, f_meta, c_meta, pasos, fichas);
+Tablero::Tablero(int pasos, int f, int c , int& fichas, int f_meta, int c_meta) {
+    filas = f;
+    columnas = c;
+    generar_tablero(pasos, filas, columnas, fichas, f_meta, c_meta);
 }

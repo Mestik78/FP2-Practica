@@ -79,7 +79,7 @@ void pinta_centro_celda(int fila, int COLS, Tablero tablero, int f_meta, int c_m
 }
 
 void Juego::mostrar() const {
-    system("clear"); // borrar consola
+    //system("clear"); // borrar consola
     cout << RESET;
 
     Tablero tablero = this->tablero;
