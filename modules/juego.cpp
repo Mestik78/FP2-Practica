@@ -16,6 +16,8 @@ Juego::Juego(int filas, int columnas) {
 }
 
 Juego::Juego(int jugadas, int filas, int columnas) {
+    estado = JUGANDO;
+
     filas = filas % (MAXDIM+1);
     columnas = columnas % (MAXDIM+1);
 
@@ -96,4 +98,8 @@ void Juego::check_estado() {
             estado = GANADOR;
         }
     }
+}
+
+int Juego::get_n_fichas() {
+    return n_fichas;
 }

@@ -85,9 +85,6 @@ void Tablero::generar_paso(int fichas[MAXDIM*MAXDIM][DIM], int& num_fichas) {
         f+=nf;
         c+=nc;
         fijar_valor_celda(f,c, FICHA);
-        fichas[num_fichas][0] = f;
-        fichas[num_fichas][1] = c;
-        num_fichas++;
     }
 }
 
@@ -115,30 +112,7 @@ void Tablero::generar_tablero(int pasos, int filas, int columnas , int& num_fich
     
 }
 
-Tablero::Tablero() {
-    filas = 5;
-    columnas = 5;
-    
-    for (int i = 0; i < filas; i++)
-    {
-        for (int j = 0; j < columnas; j++)
-        {
-            celdas[i][j] = VACIA;/*
-            if (j%2 == 0) {
-                celdas[i][j] = NULA;
-            } else if (i == 2 or i == 1) {
-                celdas[i][j] = FICHA;
-            }*/
-            if (i==1 && j == 1) {
-                celdas[i][j] = FICHA;
-            }
-            if (i==2 && j == 1) {
-                celdas[i][j] = FICHA;
-            }
-        }
-        
-    }
-}
+Tablero::Tablero() {}
 
 Tablero::Tablero(int pasos, int f, int c , int& fichas, int f_meta, int c_meta) {
     filas = f;
