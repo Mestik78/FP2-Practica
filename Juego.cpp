@@ -41,7 +41,13 @@ bool Juego::hay_movimientos() const {
 			{
 				mov = true;
 			}
+<<<<<<< Updated upstream
 		}
+=======
+			j++;
+		}
+		i++;
+>>>>>>> Stashed changes
 	}
 	return mov;
 }
@@ -52,6 +58,30 @@ Juego::Juego() {
 	this->n_fichas = 0;
 	this->estado_int = JUGANDO;
 }
+<<<<<<< Updated upstream
+=======
+
+Juego::Juego(int movimientos)
+{
+	int fil, col;
+	fil = 5;// rand() % 10;
+	col = 5;// rand() % 10;
+	Tablero t(fil, col);
+	tablero = t;
+	estado_int = JUGANDO;
+	n_fichas = 1;
+	srand(time(NULL));
+	f_meta = rand() % fil;
+	c_meta = rand() % col;
+	bool mov_ok = true;
+	while (n_fichas <= movimientos && mov_ok) // el numero max de fichas es mov +1
+	{
+		tablero.escribir(f_meta, c_meta, FICHA);
+	//	mov_ok = mov_inverso(movimientos);
+	}
+}
+
+>>>>>>> Stashed changes
 void Juego::cargar(istream& entrada) {
 	this->estado_int = JUGANDO;
 	int fil, col;
@@ -86,7 +116,10 @@ void Juego::posibles_movimientos(Movimiento& mov) const {
 	{
 		for (int i = 0; i < NUMDIR; i++)
 		{
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 			fil = fil + DIRS[i][0];
 			col = col + DIRS[i][1];
 			if (tablero.leer(fil, col) == FICHA && tablero.correcta(fil, col))
@@ -98,6 +131,11 @@ void Juego::posibles_movimientos(Movimiento& mov) const {
 					mov.insertar_dir(Direccion(i));
 				}
 			}
+<<<<<<< Updated upstream
+=======
+			fil = mov.fila();
+			col = mov.columna();
+>>>>>>> Stashed changes
 		}
 	}
 	
@@ -163,6 +201,23 @@ void Juego::pinta_centro_celda(int fila) const {
 	}
 	cout << char(179) << endl;
 }
+<<<<<<< Updated upstream
+=======
+bool Juego::mov_inverso(int movimientos)
+{
+	bool mov_ok;
+	mov_ok = elegir_mov_inverso(movimientos);
+	if (this->n_fichas )
+	{
+
+	}
+	return false;
+}
+bool Juego::elegir_mov_inverso(int movimientos)
+{
+	return false;
+}
+>>>>>>> Stashed changes
 void Juego::mostrar() const {
 	system("cls"); // borrar consola
 	cout << RESET;

@@ -15,6 +15,16 @@ Tablero::Tablero() {
 Tablero::Tablero(int fil, int col) {
 	filas = fil;
 	columnas = col;
+<<<<<<< Updated upstream
+=======
+	for (int i = 0; i < MAXDIM; i++)
+	{
+		for (int j = 0; j < MAXDIM; j++)
+		{
+			celdas[i][j] = NULA;
+		}
+	}
+>>>>>>> Stashed changes
 }
 int Tablero::num_filas() const {
 	return filas;

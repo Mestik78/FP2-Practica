@@ -18,8 +18,16 @@ private:
 	void pinta_linea(char esquinaIzda, char cruce, char esquinaDer) const;
 	void pinta_borde_celda(int fila) const;
 	void pinta_centro_celda(int fila) const;
+<<<<<<< Updated upstream
 public:
 	Juego();
+=======
+	bool mov_inverso(int movimientos);
+	bool elegir_mov_inverso(int movimientos);
+public:
+	Juego();
+	Juego(int mavimientos);
+>>>>>>> Stashed changes
 	void cargar(istream& entrada);
 	bool posicion_valida(int f, int c) const;
 	void posibles_movimientos(Movimiento & mov) const;
