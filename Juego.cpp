@@ -41,13 +41,9 @@ bool Juego::hay_movimientos() const {
 			{
 				mov = true;
 			}
-<<<<<<< Updated upstream
-		}
-=======
 			j++;
 		}
 		i++;
->>>>>>> Stashed changes
 	}
 	return mov;
 }
@@ -58,14 +54,13 @@ Juego::Juego() {
 	this->n_fichas = 0;
 	this->estado_int = JUGANDO;
 }
-<<<<<<< Updated upstream
-=======
 
 Juego::Juego(int movimientos)
 {
+	//crea el tablero nulo con la meta como una ficha
 	int fil, col;
-	fil = 5;// rand() % 10;
-	col = 5;// rand() % 10;
+	fil = 4 + rand() % 6;
+	col = 4 + rand() % 6;
 	Tablero t(fil, col);
 	tablero = t;
 	estado_int = JUGANDO;
@@ -73,15 +68,17 @@ Juego::Juego(int movimientos)
 	srand(time(NULL));
 	f_meta = rand() % fil;
 	c_meta = rand() % col;
+	///////////////////////////////
 	bool mov_ok = true;
+	tablero.escribir(f_meta, c_meta, FICHA);// hacer el tablero al reves
 	while (n_fichas <= movimientos && mov_ok) // el numero max de fichas es mov +1
 	{
-		tablero.escribir(f_meta, c_meta, FICHA);
-	//	mov_ok = mov_inverso(movimientos);
+		mov_ok = mov_inverso(fil, col);
 	}
 }
-
->>>>>>> Stashed changes
+// mov_inverso: es el que busca una ficha y mira sus posibles movimientos. parametros fil y col
+// elegir_mov_inverso: es aquel que elige una direccion rand() 
+// de las que estan disponibles y lo dibuja directamente.
 void Juego::cargar(istream& entrada) {
 	this->estado_int = JUGANDO;
 	int fil, col;
@@ -116,10 +113,6 @@ void Juego::posibles_movimientos(Movimiento& mov) const {
 	{
 		for (int i = 0; i < NUMDIR; i++)
 		{
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 			fil = fil + DIRS[i][0];
 			col = col + DIRS[i][1];
 			if (tablero.leer(fil, col) == FICHA && tablero.correcta(fil, col))
@@ -131,11 +124,8 @@ void Juego::posibles_movimientos(Movimiento& mov) const {
 					mov.insertar_dir(Direccion(i));
 				}
 			}
-<<<<<<< Updated upstream
-=======
 			fil = mov.fila();
 			col = mov.columna();
->>>>>>> Stashed changes
 		}
 	}
 	
@@ -201,23 +191,109 @@ void Juego::pinta_centro_celda(int fila) const {
 	}
 	cout << char(179) << endl;
 }
-<<<<<<< Updated upstream
-=======
-bool Juego::mov_inverso(int movimientos)
+bool Juego::mov_inverso(int fil, int col)
 {
-	bool mov_ok;
-	mov_ok = elegir_mov_inverso(movimientos);
-	if (this->n_fichas )
+	bool pos_mov= true;
+	int array[DIMENSION][DIM];// DIM ->(0,0) pos de la ficha
+	int cont = 0; 
+	for (int i = 0; i < fil; i++)
 	{
-
+		for (int j = 0; j < col; j++)
+		{
+			if (tablero.leer(i,j)==FICHA)
+			{
+				array[cont][0] = i;// fila
+				array[cont][1] = j;//columna
+				cont++;
+			}
+		}
 	}
-	return false;
+	Movimiento m;
+	do
+	{
+		int f, c, posF;
+		posF = rand() % cont; // elijo una de las fichas
+		f = array[posF][0];
+		c = array[posF][1];
+		Movimiento mov(f, c);
+		posibles_movimientos_inverso(mov);
+		if (mov.num_dirs() >= 1)
+		{
+			int num = rand() % mov.num_dirs();
+			bool correcto = false;
+			while (!correcto) {
+				if (num >= 0)
+				{
+					mov.fijar_dir_activa(mov.direccion(num));
+					correcto = true;
+				}
+			}
+		}
+		if (mov.num_dirs() == 0)
+		{
+			eliminar(array, cont, posF);
+			if (cont == 0)
+			{
+				pos_mov = false;
+			}
+		}
+		m = mov;
+	} while (!pos_mov);
+	dibujar_mov_inverso(m); // dibuja en el tablero
+	return pos_mov;
 }
-bool Juego::elegir_mov_inverso(int movimientos)
+void Juego::dibujar_mov_inverso(const Movimiento& mov)
 {
-	return false;
+	int fil, col, dir;
+	fil = mov.fila();
+	col = mov.columna();
+	dir = mov.valor_dir_activa();
+	tablero.escribir(fil, col, VACIA);
+	fil = fil + DIRS[dir][0];
+	col = col + DIRS[dir][1];
+	tablero.escribir(fil, col, FICHA);
+	fil = fil + DIRS[dir][0];
+	col = col + DIRS[dir][1];
+	tablero.escribir(fil, col, FICHA);
+	n_fichas++;
 }
->>>>>>> Stashed changes
+void Juego::posibles_movimientos_inverso(Movimiento& mov) const // te da el array posibles direcciones
+{
+	int fil, col;
+	fil = mov.fila();
+	col = mov.columna();
+	if (posicion_valida(fil, col))
+	{
+		for (int i = 0; i < NUMDIR; i++)
+		{
+			fil = fil + DIRS[i][0];
+			col = col + DIRS[i][1];
+			if (tablero.leer(fil, col) != FICHA && tablero.correcta(fil, col))
+			{
+				fil = fil + DIRS[i][0];
+				col = col + DIRS[i][1];
+				if (tablero.leer(fil, col) != FICHA && tablero.correcta(fil, col))
+				{
+					mov.insertar_dir(Direccion(i));
+				}
+			}
+			fil = mov.fila();
+			col = mov.columna();
+		}
+	}
+}
+void Juego::eliminar(int arr[DIMENSION][DIM], int& cont, int pos)
+{
+	if (pos < cont) {
+		for (int i = pos + 1; i < cont - 1; i++)
+		{
+			arr[i][0] = arr[i + 1][0];
+			arr[i][1] = arr[i + 1][1];
+		}
+		cont--;
+	}
+}
+
 void Juego::mostrar() const {
 	system("cls"); // borrar consola
 	cout << RESET;

@@ -15,8 +15,6 @@ Tablero::Tablero() {
 Tablero::Tablero(int fil, int col) {
 	filas = fil;
 	columnas = col;
-<<<<<<< Updated upstream
-=======
 	for (int i = 0; i < MAXDIM; i++)
 	{
 		for (int j = 0; j < MAXDIM; j++)
@@ -24,7 +22,6 @@ Tablero::Tablero(int fil, int col) {
 			celdas[i][j] = NULA;
 		}
 	}
->>>>>>> Stashed changes
 }
 int Tablero::num_filas() const {
 	return filas;
@@ -33,7 +30,7 @@ int Tablero::num_columnas() const {
 	return columnas;
 }
 bool Tablero::correcta(int f, int c) const {
-	return f < filas && f > 0 && c < columnas && c > 0;
+	return f < filas && f >= 0 && c < columnas && c >= 0;
 }
 Celda Tablero::leer(int f, int c) const {
 	return celdas[f][c];

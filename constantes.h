@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 using namespace std;
+const int DIMENSION = 100;
 const int NUMDIR = 4;
 const int DIM = 2;
 const int DIRS[NUMDIR][DIM] = { -1,0,1,0,0,-1,0,1 };
