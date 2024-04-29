@@ -285,7 +285,7 @@ void Juego::posibles_movimientos_inverso(Movimiento& mov) const // te da el arra
 void Juego::eliminar(int arr[DIMENSION][DIM], int& cont, int pos)
 {
 	if (pos < cont) {
-		for (int i = pos + 1; i < cont - 1; i++)
+		for (int i = pos ; i < cont - 1; i++)
 		{
 			arr[i][0] = arr[i + 1][0];
 			arr[i][1] = arr[i + 1][1];
